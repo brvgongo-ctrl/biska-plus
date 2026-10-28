@@ -70,9 +70,7 @@ pnpm install
 4. Em **Authentication → Providers**, activa:
    - **Phone:** precisa de um fornecedor de SMS (Twilio, Vonage, MessageBird…). Enquanto não houver, usa os *test phone numbers* do Supabase.
    - **Google, Apple e Facebook:** cada um pede um ID e uma chave criados na consola do respectivo fornecedor.
-5. Copia as chaves de **Project Settings → API** para:
-   - `apps/web/.env.local` (modelo em `apps/web/.env.example`)
-   - `apps/mobile/.env.local` (modelo em `apps/mobile/.env.example`)
+5. O URL e a chave pública do projecto já estão em `packages/shared/src/supabase-config.ts`. Para usar outro projecto (ex.: testes), cria `apps/web/.env.local` e `apps/mobile/.env.local` a partir dos `.env.example`.
 
 Para confirmar a ligação e que as migrações estão aplicadas:
 

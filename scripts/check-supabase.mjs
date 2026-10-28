@@ -1,5 +1,5 @@
 // Verifica a ligação ao projecto Supabase e se as migrações estão aplicadas.
-// Uso: pnpm check:supabase   (lê apps/web/.env.local)
+// Uso: pnpm check:supabase   (lê apps/web/.env.local, se existir)
 // Só usa a chave pública (publishable/anon): não altera nada.
 import { readFileSync } from "node:fs";
 
@@ -18,8 +18,11 @@ function readEnv(path) {
 }
 
 const env = { ...readEnv("apps/web/.env.local"), ...process.env };
-const url = env.NEXT_PUBLIC_SUPABASE_URL;
-const key = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+// Por omissão, os valores de packages/shared/src/supabase-config.ts.
+const shared = readFileSync("packages/shared/src/supabase-config.ts", "utf8");
+const fromShared = (name) => shared.match(new RegExp(`${name} = '([^']+)'`))?.[1];
+const url = env.NEXT_PUBLIC_SUPABASE_URL || fromShared("SUPABASE_URL");
+const key = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || fromShared("SUPABASE_PUBLISHABLE_KEY");
 if (!url || !key) {
   console.error("✗ Falta NEXT_PUBLIC_SUPABASE_URL ou NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY em apps/web/.env.local");
   process.exit(1);
