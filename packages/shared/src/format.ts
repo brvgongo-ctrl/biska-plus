@@ -25,3 +25,12 @@ export function formatKz(amount: number): string {
     .replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   return `${sign}${grouped} Kz`;
 }
+
+/** Data e hora de Luanda, curtas: "04/11/2026, 14:30". */
+export function formatDateTime(iso: string): string {
+  return new Intl.DateTimeFormat('pt-AO', {
+    dateStyle: 'short',
+    timeStyle: 'short',
+    timeZone: 'Africa/Luanda',
+  }).format(new Date(iso));
+}

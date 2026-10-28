@@ -72,7 +72,7 @@ export default function Home() {
       <View style={[styles.section, styles.proCard]}>
         <Text style={[styles.h2, { color: '#fff' }]}>{pt.home.becomePro}</Text>
         <Text style={{ color: colors.onNavyMuted, lineHeight: 21 }}>{pt.home.becomeProText}</Text>
-        <Link href="/entrar" style={styles.proCta}>
+        <Link href="/profissional" style={styles.proCta}>
           {pt.home.becomeProCta}
         </Link>
       </View>

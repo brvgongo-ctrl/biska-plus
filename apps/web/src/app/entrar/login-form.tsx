@@ -15,6 +15,12 @@ const socialButtons: { provider: Provider; label: string; className: string }[] 
 
 type Step = "choose" | "phone" | "code";
 
+/** Para onde voltar depois de entrar; só caminhos internos. */
+function safeNext() {
+  const next = new URLSearchParams(window.location.search).get("next");
+  return next && next.startsWith("/") && !next.startsWith("//") ? next : "/";
+}
+
 export function LoginForm() {
   const router = useRouter();
   const [step, setStep] = useState<Step>("choose");
@@ -36,7 +42,7 @@ export function LoginForm() {
   async function signInWith(provider: Provider) {
     setError(null);
     setBusy(true);
-    const next = new URLSearchParams(window.location.search).get("next") ?? "/";
+    const next = safeNext();
     const { error } = await createClient().auth.signInWithOAuth({
       provider,
       options: {
@@ -79,7 +85,7 @@ export function LoginForm() {
       setError(pt.auth.error);
       return;
     }
-    router.push("/");
+    router.push(safeNext());
     router.refresh();
   }
 

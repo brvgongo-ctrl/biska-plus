@@ -34,6 +34,14 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "A Biska+ precisa das tuas fotografias para enviares os documentos de verificação.",
+          "cameraPermission": "A Biska+ usa a câmara para fotografares o BI e tirares a selfie de verificação.",
+          "microphonePermission": false
+        }
       ]
     ],
     "experiments": {

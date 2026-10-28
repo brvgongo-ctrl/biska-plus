@@ -65,7 +65,7 @@ export default function Home() {
         <section className="flex flex-col items-start gap-3 rounded-3xl bg-navy p-6 text-white">
           <h2 className="text-lg font-bold">{pt.home.becomePro}</h2>
           <p className="max-w-xl text-on-navy-muted">{pt.home.becomeProText}</p>
-          <Link href="/entrar?perfil=profissional" className="rounded-xl bg-amber px-5 py-3 font-bold text-navy">
+          <Link href="/profissional" className="rounded-xl bg-amber px-5 py-3 font-bold text-navy">
             {pt.home.becomeProCta}
           </Link>
         </section>

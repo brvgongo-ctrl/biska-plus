@@ -14,14 +14,26 @@ export async function UserMenu() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("full_name")
+    .select("full_name, roles")
     .eq("id", userId)
     .maybeSingle();
   const firstName = profile?.full_name?.split(" ")[0];
 
+  const roles = profile?.roles ?? [];
+
   return (
     <div className="flex items-center gap-3">
-      <span className="text-sm text-on-navy-muted">
+      {roles.includes("admin") && (
+        <Link href="/admin" className="text-sm font-semibold underline-offset-4 hover:underline">
+          {pt.home.adminArea}
+        </Link>
+      )}
+      {roles.includes("professional") && (
+        <Link href="/profissional" className="text-sm font-semibold underline-offset-4 hover:underline">
+          {pt.home.proArea}
+        </Link>
+      )}
+      <span className="hidden text-sm text-on-navy-muted sm:inline">
         {pt.home.hello}
         {firstName ? `, ${firstName}` : ""}
       </span>

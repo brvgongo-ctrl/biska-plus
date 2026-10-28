@@ -7,7 +7,9 @@
     "dev:mobile": "pnpm --filter mobile start",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "test:db": "./scripts/test-db.sh",
+    "check:supabase": "node scripts/check-supabase.mjs"
   },
   "devDependencies": {
     "turbo": "2.11.10",
