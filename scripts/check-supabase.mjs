@@ -83,5 +83,10 @@ await check("Sprint 2 · review_kyc_document()", () =>
 );
 await check("Sprint 2 · log_kyc_view()", () => rpcExists("log_kyc_view", { professional_id: "00000000-0000-0000-0000-000000000000" }));
 
+await check("Sprint 3 · zonas na vista pública", async () => {
+  await get("/rest/v1/public_professionals?select=zone_ids,zone_names,verified_at&limit=1");
+  return "ok";
+});
+
 console.log(failed ? `\n${failed} verificação(ões) falharam.` : "\nTudo pronto.");
 process.exit(failed ? 1 : 0);

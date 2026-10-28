@@ -1,6 +1,6 @@
-import { Link, Redirect } from 'expo-router';
+import { Link, Redirect, router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CATEGORIES, colors, pt } from '@biska/shared';
 import { CategoryIcon } from '@/components/category-icon';
@@ -10,6 +10,7 @@ import { useSession } from '@/lib/use-session';
 export default function Home() {
   const session = useSession();
   const [firstName, setFirstName] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     if (!supabase || !session) return;
@@ -51,9 +52,16 @@ export default function Home() {
             {firstName ? `, ${firstName}` : ''}
           </Text>
           <Text style={styles.title}>{pt.home.whoDoYouNeed}</Text>
-          <View style={styles.search}>
-            <Text style={styles.searchText}>{pt.home.searchPlaceholder}</Text>
-          </View>
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            onSubmitEditing={() => router.push({ pathname: '/pesquisa', params: { q: query } })}
+            returnKeyType="search"
+            placeholder={pt.home.searchPlaceholder}
+            placeholderTextColor={colors.muted}
+            accessibilityLabel={pt.search.title}
+            style={styles.search}
+          />
         </SafeAreaView>
       </View>
 
@@ -61,10 +69,12 @@ export default function Home() {
         <Text style={styles.h2}>{pt.home.categories}</Text>
         <View style={styles.grid}>
           {CATEGORIES.map((c) => (
-            <View key={c.slug} style={styles.tile}>
-              <CategoryIcon slug={c.slug} color={colors.navy} />
-              <Text style={styles.tileText}>{c.name}</Text>
-            </View>
+            <Link key={c.slug} href={{ pathname: '/pesquisa', params: { categoria: c.slug } }} asChild>
+              <Pressable accessibilityRole="link" style={styles.tile}>
+                <CategoryIcon slug={c.slug} color={colors.navy} />
+                <Text style={styles.tileText}>{c.name}</Text>
+              </Pressable>
+            </Link>
           ))}
         </View>
       </View>
@@ -103,8 +113,7 @@ const styles = StyleSheet.create({
   signOutText: { color: '#fff', fontWeight: '600' },
   hello: { color: colors.onNavyMuted, fontSize: 15 },
   title: { color: '#fff', fontSize: 25, fontWeight: '700' },
-  search: { backgroundColor: '#fff', borderRadius: 16, paddingHorizontal: 16, height: 56, justifyContent: 'center' },
-  searchText: { color: colors.muted, fontSize: 15 },
+  search: { backgroundColor: '#fff', borderRadius: 16, paddingHorizontal: 16, height: 56, fontSize: 15, color: colors.text },
   section: { marginHorizontal: 20, marginTop: 24, gap: 14 },
   h2: { fontSize: 17, fontWeight: '700', color: colors.text },
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },

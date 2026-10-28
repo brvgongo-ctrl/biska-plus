@@ -41,6 +41,12 @@ Tudo é escrito em **TypeScript**. A base de dados e a autenticação ficam no *
   - cada decisão e cada consulta dos documentos por um admin fica em `audit_log`.
 - Testes automáticos destas regras em `supabase/tests/` (`pnpm test:db`).
 
+## O que já existe (Sprint 3)
+
+- **Pesquisa** (web em `/pesquisa`, também na app): por categoria e zona, sem precisar de login. A frase da página inicial é lida por palavras-chave ("canalizador no Kilamba" → Canalizador · Kilamba); a leitura com IA fica para o Sprint 5.
+- **Perfil público** (`/profissionais/<id>`): nome abreviado, categoria, selo "Verificado pela Biska+", experiência, preço por dia, zonas e descrição. Nunca mostra telefone, nome completo nem documentos. Suspensos ou em análise não aparecem.
+- Migração `supabase/migrations/20261111000000_sprint3_public_search.sql`: a vista pública passa a incluir as zonas e a data da verificação.
+
 ## Pôr a funcionar
 
 ### 1. Requisitos
@@ -58,9 +64,10 @@ pnpm install
 2. Em **SQL Editor**, corre por esta ordem o conteúdo de:
    1. `supabase/migrations/20261028000000_init.sql`
    2. `supabase/migrations/20261104000000_sprint2_pro_onboarding.sql`
-   3. `supabase/seed.sql`
+   3. `supabase/migrations/20261111000000_sprint3_public_search.sql`
+   4. `supabase/seed.sql`
 
-   (Se já tinhas corrido o Sprint 1, basta correr o ficheiro do Sprint 2.)
+   (Se já tinhas corrido os anteriores, basta correr os ficheiros novos.)
 3. Em **Authentication → URL Configuration**:
    - **Site URL:** `http://localhost:3000` (depois, o domínio real)
    - **Redirect URLs:**
@@ -108,7 +115,7 @@ where id = (select id from auth.users where email = 'teu-email@exemplo.com');
 ## Próximos sprints
 
 2. ~~Cadastro do profissional com envio de documentos e painel admin de aprovação~~ ✓
-3. Pesquisa por categoria e localização, perfil público
+3. ~~Pesquisa por categoria e localização, perfil público~~ ✓
 4. Pedidos, orçamentos, chat e notificações
 5. Avaliações, SOS, denúncias e IA (pedido em linguagem natural, leitura do BI)
 6. Pagamentos (modo de teste), polimento e publicação beta

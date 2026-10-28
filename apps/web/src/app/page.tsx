@@ -22,7 +22,7 @@ export default function Home() {
             <p className="max-w-xl text-on-navy-muted">{pt.intro}</p>
           </div>
 
-          <form action="/entrar" className="flex max-w-2xl items-center gap-2 rounded-2xl bg-white p-2 pl-4">
+          <form action="/pesquisa" className="flex max-w-2xl items-center gap-2 rounded-2xl bg-white p-2 pl-4">
             <label htmlFor="pedido" className="sr-only">
               {pt.home.searchPlaceholder}
             </label>
@@ -33,7 +33,7 @@ export default function Home() {
               className="h-11 min-w-0 flex-1 bg-transparent text-ink outline-none placeholder:text-muted"
             />
             <button type="submit" className="h-11 rounded-xl bg-amber px-5 font-bold text-navy">
-              Pedir
+              {pt.search.submit}
             </button>
           </form>
           <p className="text-xs text-on-navy-muted">
@@ -51,7 +51,7 @@ export default function Home() {
             {CATEGORIES.map((c) => (
               <li key={c.slug}>
                 <Link
-                  href={`/entrar?categoria=${c.slug}`}
+                  href={`/pesquisa?categoria=${c.slug}`}
                   className="flex h-full flex-col items-center gap-2 rounded-2xl border border-line bg-white px-2 py-4 text-center text-sm font-semibold"
                 >
                   <CategoryIcon slug={c.slug} />
