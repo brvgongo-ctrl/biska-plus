@@ -1,0 +1,17 @@
+{
+  "name": "biska-plus",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "pnpm --filter web dev",
+    "dev:mobile": "pnpm --filter mobile start",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "turbo": "2.11.10",
+    "typescript": "~6.0.3"
+  },
+  "packageManager": "pnpm@10.28.0"
+}

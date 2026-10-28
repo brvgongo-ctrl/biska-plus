@@ -147,3 +147,16 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Biska+
+.turbo
+.next/
+.expo/
+expo-env.d.ts
+web-build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+supabase/.temp/
+supabase/.branches/
